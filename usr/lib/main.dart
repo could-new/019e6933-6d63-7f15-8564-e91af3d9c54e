@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const KoreanLearningApp());
+  runApp(const KoreanKidsApp());
 }
 
-class KoreanLearningApp extends StatelessWidget {
-  const KoreanLearningApp({super.key});
+class KoreanKidsApp extends StatelessWidget {
+  const KoreanKidsApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,13 +14,18 @@ class KoreanLearningApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.orange,
-          primary: Colors.orange,
-          secondary: Colors.lightBlue,
+          seedColor: const Color(0xFF4DB6AC),
+          brightness: Brightness.light,
         ),
-        fontFamily: 'Comic Sans MS', // Fun font if available, fallback otherwise
+        fontFamily: 'Changa', // General fallback, assuming standard sans-serif works well
         useMaterial3: true,
       ),
+      builder: (context, child) {
+        return Directionality(
+          textDirection: TextDirection.rtl,
+          child: child!,
+        );
+      },
       initialRoute: '/',
       routes: {
         '/': (context) => const HomeScreen(),
@@ -29,61 +34,184 @@ class KoreanLearningApp extends StatelessWidget {
   }
 }
 
+class Category {
+  final String id;
+  final String titleAr;
+  final String titleEn;
+  final String titleKo;
+  final Color color;
+  final IconData icon;
+  final List<Vocabulary> items;
+
+  Category({
+    required this.id,
+    required this.titleAr,
+    required this.titleEn,
+    required this.titleKo,
+    required this.color,
+    required this.icon,
+    required this.items,
+  });
+}
+
+class Vocabulary {
+  final String emoji;
+  final String arabic;
+  final String english;
+  final String korean;
+  final String pronunciationAr;
+  final String pronunciationEn;
+
+  Vocabulary({
+    required this.emoji,
+    required this.arabic,
+    required this.english,
+    required this.korean,
+    required this.pronunciationAr,
+    required this.pronunciationEn,
+  });
+}
+
+final List<Category> appCategories = [
+  Category(
+    id: 'numbers',
+    titleAr: 'الأرقام',
+    titleEn: 'Numbers',
+    titleKo: '숫자 (Sutja)',
+    color: const Color(0xFFFF7043),
+    icon: Icons.format_list_numbered_rtl,
+    items: [
+      Vocabulary(emoji: '1️⃣', arabic: 'واحد', english: 'One', korean: '하나', pronunciationAr: 'هانا', pronunciationEn: 'Hana'),
+      Vocabulary(emoji: '2️⃣', arabic: 'اثنان', english: 'Two', korean: '둘', pronunciationAr: 'دول', pronunciationEn: 'Dul'),
+      Vocabulary(emoji: '3️⃣', arabic: 'ثلاثة', english: 'Three', korean: '셋', pronunciationAr: 'سيت', pronunciationEn: 'Set'),
+      Vocabulary(emoji: '4️⃣', arabic: 'أربعة', english: 'Four', korean: '넷', pronunciationAr: 'نيت', pronunciationEn: 'Net'),
+      Vocabulary(emoji: '5️⃣', arabic: 'خمسة', english: 'Five', korean: '다섯', pronunciationAr: 'داسوت', pronunciationEn: 'Daseot'),
+      Vocabulary(emoji: '6️⃣', arabic: 'ستة', english: 'Six', korean: '여섯', pronunciationAr: 'يوسوت', pronunciationEn: 'Yeoseot'),
+      Vocabulary(emoji: '7️⃣', arabic: 'سبعة', english: 'Seven', korean: '일곱', pronunciationAr: 'إيلجوب', pronunciationEn: 'Ilgop'),
+      Vocabulary(emoji: '8️⃣', arabic: 'ثمانية', english: 'Eight', korean: '여덟', pronunciationAr: 'يودول', pronunciationEn: 'Yeodeol'),
+      Vocabulary(emoji: '9️⃣', arabic: 'تسعة', english: 'Nine', korean: '아홉', pronunciationAr: 'آهوب', pronunciationEn: 'Ahop'),
+      Vocabulary(emoji: '🔟', arabic: 'عشرة', english: 'Ten', korean: '열', pronunciationAr: 'يول', pronunciationEn: 'Yeol'),
+      Vocabulary(emoji: '💯', arabic: 'مائة', english: 'Hundred', korean: '백', pronunciationAr: 'بيك', pronunciationEn: 'Baek'),
+    ],
+  ),
+  Category(
+    id: 'animals',
+    titleAr: 'الحيوانات',
+    titleEn: 'Animals',
+    titleKo: '동물 (Dongmul)',
+    color: const Color(0xFF66BB6A),
+    icon: Icons.pets,
+    items: [
+      Vocabulary(emoji: '🐱', arabic: 'قطة', english: 'Cat', korean: '고양이', pronunciationAr: 'جويانجي', pronunciationEn: 'Goyangi'),
+      Vocabulary(emoji: '🐶', arabic: 'كلب', english: 'Dog', korean: '강아지', pronunciationAr: 'كانغاجي', pronunciationEn: 'Gangaji'),
+      Vocabulary(emoji: '🐘', arabic: 'فيل', english: 'Elephant', korean: '코끼리', pronunciationAr: 'كوكيـري', pronunciationEn: 'Kokkiri'),
+      Vocabulary(emoji: '🦁', arabic: 'أسد', english: 'Lion', korean: '사자', pronunciationAr: 'ساجا', pronunciationEn: 'Saja'),
+      Vocabulary(emoji: '🐯', arabic: 'نمر', english: 'Tiger', korean: '호랑이', pronunciationAr: 'هورانجي', pronunciationEn: 'Horangi'),
+      Vocabulary(emoji: '🐻', arabic: 'دب', english: 'Bear', korean: '곰', pronunciationAr: 'جوم', pronunciationEn: 'Gom'),
+      Vocabulary(emoji: '🐰', arabic: 'أرنب', english: 'Rabbit', korean: '토끼', pronunciationAr: 'توكي', pronunciationEn: 'Tokki'),
+      Vocabulary(emoji: '🐦', arabic: 'طائر', english: 'Bird', korean: '새', pronunciationAr: 'سي', pronunciationEn: 'Sae'),
+      Vocabulary(emoji: '🐟', arabic: 'سمكة', english: 'Fish', korean: '물고기', pronunciationAr: 'مولجوجي', pronunciationEn: 'Mulgogi'),
+      Vocabulary(emoji: '🐒', arabic: 'قرد', english: 'Monkey', korean: '원숭이', pronunciationAr: 'وونسونجي', pronunciationEn: 'Wonsungi'),
+      Vocabulary(emoji: '🐎', arabic: 'حصان', english: 'Horse', korean: '말', pronunciationAr: 'مال', pronunciationEn: 'Mal'),
+      Vocabulary(emoji: '🐄', arabic: 'بقرة', english: 'Cow', korean: '소', pronunciationAr: 'سو', pronunciationEn: 'So'),
+    ],
+  ),
+  Category(
+    id: 'clothes',
+    titleAr: 'الملابس',
+    titleEn: 'Clothes',
+    titleKo: '옷 (Ot)',
+    color: const Color(0xFF29B6F6),
+    icon: Icons.checkroom,
+    items: [
+      Vocabulary(emoji: '👕', arabic: 'قميص', english: 'Shirt', korean: '셔츠', pronunciationAr: 'شوتشو', pronunciationEn: 'Syeocheu'),
+      Vocabulary(emoji: '👖', arabic: 'بنطال', english: 'Pants', korean: '바지', pronunciationAr: 'باجي', pronunciationEn: 'Baji'),
+      Vocabulary(emoji: '👗', arabic: 'فستان', english: 'Dress', korean: '원피스', pronunciationAr: 'وونبيسو', pronunciationEn: 'Wonpiseu'),
+      Vocabulary(emoji: '👞', arabic: 'حذاء', english: 'Shoes', korean: '신발', pronunciationAr: 'شينبال', pronunciationEn: 'Sinbal'),
+      Vocabulary(emoji: '🧢', arabic: 'قبعة', english: 'Hat', korean: '모자', pronunciationAr: 'موجا', pronunciationEn: 'Moja'),
+      Vocabulary(emoji: '🧦', arabic: 'جوارب', english: 'Socks', korean: '양말', pronunciationAr: 'يانجمال', pronunciationEn: 'Yangmal'),
+      Vocabulary(emoji: '🧥', arabic: 'سترة', english: 'Jacket', korean: '재킷', pronunciationAr: 'جيكيت', pronunciationEn: 'Jaekit'),
+      Vocabulary(emoji: '👚', arabic: 'تنورة', english: 'Skirt', korean: '치마', pronunciationAr: 'تشيما', pronunciationEn: 'Chima'),
+      Vocabulary(emoji: '🧣', arabic: 'وشاح', english: 'Scarf', korean: '목도리', pronunciationAr: 'موكدوري', pronunciationEn: 'Mokdori'),
+      Vocabulary(emoji: '🧤', arabic: 'قفازات', english: 'Gloves', korean: '장갑', pronunciationAr: 'جانجاب', pronunciationEn: 'Janggap'),
+    ],
+  ),
+  Category(
+    id: 'colors',
+    titleAr: 'الألوان',
+    titleEn: 'Colors',
+    titleKo: '색깔 (Saekkkal)',
+    color: const Color(0xFFAB47BC),
+    icon: Icons.color_lens,
+    items: [
+      Vocabulary(emoji: '🔴', arabic: 'أحمر', english: 'Red', korean: '빨간색', pronunciationAr: 'بالجان سيك', pronunciationEn: 'Ppalgansaek'),
+      Vocabulary(emoji: '🔵', arabic: 'أزرق', english: 'Blue', korean: '파란색', pronunciationAr: 'باران سيك', pronunciationEn: 'Paransaek'),
+      Vocabulary(emoji: '🟢', arabic: 'أخضر', english: 'Green', korean: '초록색', pronunciationAr: 'تشوروك سيك', pronunciationEn: 'Choroksaek'),
+      Vocabulary(emoji: '🟡', arabic: 'أصفر', english: 'Yellow', korean: '노란색', pronunciationAr: 'نوران سيك', pronunciationEn: 'Noransaek'),
+      Vocabulary(emoji: '⚫', arabic: 'أسود', english: 'Black', korean: '검은색', pronunciationAr: 'جومون سيك', pronunciationEn: 'Geomeunsaek'),
+      Vocabulary(emoji: '⚪', arabic: 'أبيض', english: 'White', korean: '하얀색', pronunciationAr: 'هايان سيك', pronunciationEn: 'Hayansaek'),
+      Vocabulary(emoji: '🟣', arabic: 'أرجواني', english: 'Purple', korean: '보라색', pronunciationAr: 'بورا سيك', pronunciationEn: 'Borasaek'),
+      Vocabulary(emoji: '🟠', arabic: 'برتقالي', english: 'Orange', korean: '주황색', pronunciationAr: 'جوهوانج سيك', pronunciationEn: 'Juhwangsaek'),
+      Vocabulary(emoji: '🩷', arabic: 'وردي', english: 'Pink', korean: '분홍색', pronunciationAr: 'بونهونج سيك', pronunciationEn: 'Bunhongsaek'),
+      Vocabulary(emoji: '🟤', arabic: 'بني', english: 'Brown', korean: '갈색', pronunciationAr: 'جال سيك', pronunciationEn: 'Galsaek'),
+    ],
+  ),
+];
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[50],
+      backgroundColor: const Color(0xFFF3E5F5),
       appBar: AppBar(
         title: const Text(
-          'تعلم الكورية 🇰🇷',
-          style: TextStyle(fontWeight: FontWeight.bold),
+          'أصدقاء الكورية 🇰🇷',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
         ),
         centerTitle: true,
-        backgroundColor: Colors.orange,
-        foregroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
+        foregroundColor: Colors.deepPurple,
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: LayoutBuilder(
-            builder: (context, constraints) {
-              int crossAxisCount = constraints.maxWidth > 600 ? 4 : 2;
-              return GridView.count(
-                crossAxisCount: crossAxisCount,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                children: const [
-                  CategoryCard(
-                    title: 'الأرقام',
-                    icon: Icons.format_list_numbered,
-                    color: Colors.blue,
-                    route: '/numbers',
-                  ),
-                  CategoryCard(
-                    title: 'الألوان',
-                    icon: Icons.color_lens,
-                    color: Colors.red,
-                    route: '/colors',
-                  ),
-                  CategoryCard(
-                    title: 'الحيوانات',
-                    icon: Icons.pets,
-                    color: Colors.green,
-                    route: '/animals',
-                  ),
-                  CategoryCard(
-                    title: 'العائلة',
-                    icon: Icons.family_restroom,
-                    color: Colors.purple,
-                    route: '/family',
-                  ),
-                ],
-              );
-            },
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'ماذا تريد أن تتعلم اليوم؟',
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black87,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 24),
+              Expanded(
+                child: LayoutBuilder(
+                  builder: (context, constraints) {
+                    int crossAxisCount = constraints.maxWidth > 600 ? 4 : 2;
+                    return GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: crossAxisCount,
+                        childAspectRatio: 0.85,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemCount: appCategories.length,
+                      itemBuilder: (context, index) {
+                        final category = appCategories[index];
+                        return CategoryCard(category: category);
+                      },
+                    );
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -92,58 +220,59 @@ class HomeScreen extends StatelessWidget {
 }
 
 class CategoryCard extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final Color color;
-  final String route;
+  final Category category;
 
-  const CategoryCard({
-    super.key,
-    required this.title,
-    required this.icon,
-    required this.color,
-    required this.route,
-  });
+  const CategoryCard({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CategoryScreen(title: title, categoryColor: color),
+            builder: (context) => CategoryScreen(category: category),
           ),
         );
       },
+      borderRadius: BorderRadius.circular(24),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
+          color: category.color,
+          borderRadius: BorderRadius.circular(24),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.3),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
+              color: category.color.withOpacity(0.4),
+              blurRadius: 8,
+              offset: const Offset(0, 4),
             ),
           ],
-          border: Border.all(color: color.withOpacity(0.5), width: 2),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              icon,
-              size: 60,
-              color: color,
+              category.icon,
+              size: 56,
+              color: Colors.white,
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
             Text(
-              title,
-              style: TextStyle(
+              category.titleAr,
+              style: const TextStyle(
+                color: Colors.white,
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
-                color: color,
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              '${category.titleEn} • ${category.titleKo}',
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: Colors.white70,
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ],
@@ -154,112 +283,30 @@ class CategoryCard extends StatelessWidget {
 }
 
 class CategoryScreen extends StatelessWidget {
-  final String title;
-  final Color categoryColor;
+  final Category category;
 
-  const CategoryScreen({
-    super.key,
-    required this.title,
-    required this.categoryColor,
-  });
-
-  List<LearningItem> _getItems() {
-    if (title == 'الأرقام') {
-      return const [
-        LearningItem(korean: '하나 (Hana)', arabic: 'واحد (1)', icon: Icons.looks_one),
-        LearningItem(korean: '둘 (Dul)', arabic: 'اثنان (2)', icon: Icons.looks_two),
-        LearningItem(korean: '셋 (Set)', arabic: 'ثلاثة (3)', icon: Icons.looks_3),
-        LearningItem(korean: '넷 (Net)', arabic: 'أربعة (4)', icon: Icons.looks_4),
-      ];
-    } else if (title == 'الألوان') {
-      return const [
-        LearningItem(korean: '빨간색 (Ppalgansaek)', arabic: 'أحمر', color: Colors.red),
-        LearningItem(korean: '파란색 (Paransaek)', arabic: 'أزرق', color: Colors.blue),
-        LearningItem(korean: '노란색 (Noransaek)', arabic: 'أصفر', color: Colors.yellow),
-        LearningItem(korean: '초록색 (Choroksaek)', arabic: 'أخضر', color: Colors.green),
-      ];
-    } else if (title == 'الحيوانات') {
-      return const [
-        LearningItem(korean: '고양이 (Goyangi)', arabic: 'قطة', icon: Icons.pets),
-        LearningItem(korean: '개 (Gae)', arabic: 'كلب', icon: Icons.cruelty_free),
-        LearningItem(korean: '새 (Sae)', arabic: 'طائر', icon: Icons.flutter_dash),
-        LearningItem(korean: '물고기 (Mulgogi)', arabic: 'سمكة', icon: Icons.set_meal),
-      ];
-    } else {
-      return const [
-        LearningItem(korean: '엄마 (Eomma)', arabic: 'أمي', icon: Icons.pregnant_woman),
-        LearningItem(korean: '아빠 (Appa)', arabic: 'أبي', icon: Icons.man),
-        LearningItem(korean: '형/오빠 (Hyeong/Oppa)', arabic: 'أخي الأكبر', icon: Icons.boy),
-        LearningItem(korean: '누나/언니 (Nuna/Eonni)', arabic: 'أختي الكبرى', icon: Icons.girl),
-      ];
-    }
-  }
+  const CategoryScreen({super.key, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    final items = _getItems();
-
     return Scaffold(
+      backgroundColor: Colors.grey[50],
       appBar: AppBar(
-        title: Text(title),
-        backgroundColor: categoryColor,
+        title: Text(category.titleAr),
+        backgroundColor: category.color,
         foregroundColor: Colors.white,
+        centerTitle: true,
       ),
       body: SafeArea(
         child: ListView.builder(
           padding: const EdgeInsets.all(16),
-          itemCount: items.length,
+          itemCount: category.items.length,
           itemBuilder: (context, index) {
-            return Card(
-              elevation: 4,
-              margin: const EdgeInsets.only(bottom: 16),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 60,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        color: items[index].color ?? categoryColor.withOpacity(0.2),
-                        shape: BoxShape.circle,
-                      ),
-                      child: items[index].icon != null
-                          ? Icon(
-                              items[index].icon,
-                              size: 30,
-                              color: items[index].color != null ? Colors.white : categoryColor,
-                            )
-                          : null,
-                    ),
-                    const SizedBox(width: 20),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            items[index].korean,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            items[index].arabic,
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey[700],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+            return Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: VocabularyCard(
+                vocabulary: category.items[index],
+                color: category.color,
               ),
             );
           },
@@ -269,16 +316,137 @@ class CategoryScreen extends StatelessWidget {
   }
 }
 
-class LearningItem {
-  final String korean;
-  final String arabic;
-  final IconData? icon;
-  final Color? color;
+class VocabularyCard extends StatelessWidget {
+  final Vocabulary vocabulary;
+  final Color color;
 
-  const LearningItem({
-    required this.korean,
-    required this.arabic,
-    this.icon,
-    this.color,
+  const VocabularyCard({
+    super.key,
+    required this.vocabulary,
+    required this.color,
   });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Container(
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Center(
+                child: Text(
+                  vocabulary.emoji,
+                  style: const TextStyle(fontSize: 40),
+                ),
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        vocabulary.arabic,
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey[800],
+                        ),
+                      ),
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Text(
+                          vocabulary.english,
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.grey[500],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const Divider(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        vocabulary.korean,
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                          color: color,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[100],
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          'نطق: ${vocabulary.pronunciationAr}',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[700],
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                      Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                          decoration: BoxDecoration(
+                            color: Colors.grey[100],
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: Text(
+                            vocabulary.pronunciationEn,
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey[700],
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
